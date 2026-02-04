@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>❤️ 我的情人节表白 ❤️</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .header {
+            background: linear-gradient(to right, #ff6b6b, #ff8e8e);
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header h1 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+        }
+        
+        .heart-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            color: white;
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .content {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .love-letter {
+            background-color: #fff9f9;
+            border-left: 5px solid #ff6b6b;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            line-height: 1.8;
+            font-size: 1.1rem;
+            color: #555;
+        }
+        
+        .recipient-name {
+            font-weight: bold;
+            color: #ff6b6b;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        
+        .love-letter p {
+            margin-bottom: 15px;
+            text-indent: 2em;
+        }
+        
+        .interactive-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .question {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            color: #ff6b6b;
+            text-align: center;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .yes-btn {
+            background-color: #ff6b6b;
+            color: white;
+        }
+        
+        .yes-btn:hover {
+            background-color: #ff5252;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+        }
+        
+        .no-btn {
+            background-color: #f0f0f0;
+            color: #666;
+        }
+        
+        .no-btn:hover {
+            background-color: #e0e0e0;
+            transform: translateY(-5px);
+        }
+        
+        .photo-frame {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 25px 0;
+            border: 8px solid #ffc3a0;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            position: relative;
+        }
+        
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .heart-emoji {
+            position: absolute;
+            font-size: 1.5rem;
+            color: #ff6b6b;
+            z-index: 10;
+            pointer-events: none;
+            opacity: 0;
+        }
+        
+        .footer {
+            background-color: #fff0f0;
+            padding: 20px;
+            text-align: center;
+            color: #ff6b6b;
+            font-size: 0.9rem;
+        }
+        
+        .floating-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .floating-heart {
+            position: absolute;
+            font-size: 1.5rem;
+            color: #ff6b6b;
+            opacity: 0;
+            animation: floatUp 5s linear infinite;
+        }
+        
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .hidden-message {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(255, 107, 107, 0.1);
+            border-radius: 10px;
+            margin-top: 20px;
+            animation: fadeIn 1s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .success-message {
+            font-size: 2rem;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 25px;
+            }
+            
+            .buttons {
+                flex-direction: column;
+                gap: 15px;
+                width: 100%;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <i class="fas fa-heart heart-icon"></i>
+            <h1>❤️ 情人节快乐 ❤️</h1>
+            <p>给特别的人，特别的爱</p>
+        </div>
+        
+        <div class="content">
+            <div class="love-letter">
+                <div class="recipient-name">亲爱的 []：</div>
+                <p>遇见你，是我生命中最美好的奇迹。你的笑容如春日暖阳，照亮我世界的每一个角落。</p>
+                <p>每一次和你在一起，时间都变得温柔而缓慢。你的声音是我最爱的旋律，你的眼神是我追寻的星辰。</p>
+                <p>在这个特别的日子里，我想对你说：你是我今生最想守护的人，是我心跳加速的唯一理由。</p>
+                <p style="text-align: right; margin-top: 20px;">永远爱你的 [lxy] ❤️</p>
+            </div>
+            
+            <div class="photo-frame">
+                <img src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="浪漫情侣插画" id="couple-photo">
+            </div>
+            
+            <div class="interactive-section">
+                <div class="question">你愿意成为我的情人节专属吗？</div>
+                
+                <div class="buttons">
+                    <button class="btn yes-btn" id="yesBtn">当然愿意！ ❤️</button>
+                    <button class="btn no-btn" id="noBtn">我再想想...</button>
+                </div>
+                
+                <div class="hidden-message" id="successMessage">
+                    <div class="success-message">
+                        <i class="fas fa-heart"></i> 太棒了！ <i class="fas fa-heart"></i>
+                    </div>
+                    <p>你让我的世界完整了！期待与你的每一个明天～</p>
+                    <p style="margin-top: 15px;">💌 我们的故事，从这里开始 💌</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>制作于 ❤️ 情人节 ❤️ | 每一颗心都为你跳动</p>
+            <p style="font-size: 0.8rem; margin-top: 5px;">刷新页面会有更多小心心出现哦！</p>
+        </div>
+        
+        <div class="floating-hearts" id="floatingHearts"></div>
+    </div>
+
+    <script>
+        // 动态创建漂浮的爱心
+        function createFloatingHearts() {
+            const container = document.getElementById('floatingHearts');
+            const heartCount = 15;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('floating-heart');
+                heart.innerHTML = '❤️';
+                
+                // 随机位置
+                const left = Math.random() * 100;
+                const delay = Math.random() * 5;
+                const duration = 3 + Math.random() * 4;
+                
+                heart.style.left = `${left}%`;
+                heart.style.animationDelay = `${delay}s`;
+                heart.style.animationDuration = `${duration}s`;
+                
+                container.appendChild(heart);
+            }
+        }
+        
+        // 创建点击出现的小爱心
+        function createClickHearts(x, y) {
+            for (let i = 0; i < 5; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart-emoji');
+                heart.innerHTML = '❤️';
+                heart.style.left = `${x + Math.random() * 30 - 15}px`;
+                heart.style.top = `${y + Math.random() * 30 - 15}px`;
+                
+                document.querySelector('.container').appendChild(heart);
+                
+                // 动画效果
+                setTimeout(() => {
+                    heart.style.opacity = '1';
+                    heart.style.transform = `translateY(${Math.random() * 40 - 20}px) translateX(${Math.random() * 40 - 20}px) scale(1.5)`;
+                }, 10);
+                
+                // 移除爱心
+                setTimeout(() => {
+                    heart.style.opacity = '0';
+                    setTimeout(() => heart.remove(), 1000);
+                }, 800);
+            }
+        }
+        
+        // "我愿意"按钮点击事件
+        document.getElementById('yesBtn').addEventListener('click', function() {
+            const successMessage = document.getElementById('successMessage');
+            successMessage.style.display = 'block';
+            
+            // 创建大量爱心
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const x = Math.random() * window.innerWidth;
+                    const y = Math.random() * window.innerHeight;
+                    createClickHearts(x, y);
+                }, i * 50);
+            }
+            
+            // 更改标题
+            document.querySelector('.header h1').textContent = '❤️ 我们在一起了！ ❤️';
+            document.querySelector('.header p').textContent = '爱是永恒的星辰，闪耀在我们的天空';
+            
+            // 更改照片
+            document.getElementById('couple-photo').src = "https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80";
+            
+            // 隐藏问题按钮
+            document.querySelector('.buttons').style.display = 'none';
+        });
+        
+        // "我再想想"按钮点击事件
+        document.getElementById('noBtn').addEventListener('click', function() {
+            const btn = this;
+            const container = document.querySelector('.container');
+            
+            // 按钮随机移动效果
+            let moveCount = 0;
+            const maxMoves = 10;
+            
+            const moveButton = () => {
+                if (moveCount >= maxMoves) return;
+                
+                const containerRect = container.getBoundingClientRect();
+                const btnRect = btn.getBoundingClientRect();
+                
+                const maxX = containerRect.width - btnRect.width - 20;
+                const maxY = containerRect.height - btnRect.height - 100;
+                
+                const randomX = Math.random() * maxX;
+                const randomY = Math.random() * maxY;
+                
+                btn.style.position = 'absolute';
+                btn.style.left = `${randomX}px`;
+                btn.style.top = `${randomY}px`;
+                
+                moveCount++;
+                
+                // 改变按钮文本
+                const texts = ['再想想嘛', '真的不要吗', '给个机会', '求求你啦', '我会伤心哦', '最后一次机会'];
+                btn.textContent = texts[Math.min(moveCount - 1, texts.length - 1)];
+                
+                // 如果移动次数很多，改变按钮为接受
+                if (moveCount >= maxMoves - 2) {
+                    btn.textContent = '好吧我愿意！';
+                    btn.classList.remove('no-btn');
+                    btn.classList.add('yes-btn');
+                    btn.onclick = document.getElementById('yesBtn').onclick;
+                }
+            };
+            
+            moveButton();
+            btn.addEventListener('mouseover', moveButton);
+            btn.addEventListener('touchstart', moveButton);
+        });
+        
+        // 页面点击产生爱心
+        document.addEventListener('click', function(e) {
+            createClickHearts(e.clientX, e.clientY);
+        });
+        
+        // 初始化漂浮爱心
+        createFloatingHearts();
+        
+        // 每10秒添加新的漂浮爱心
+        setInterval(() => {
+            const hearts = document.querySelectorAll('.floating-heart');
+            if (hearts.length < 30) {
+                createFloatingHearts();
+            }
+        }, 10000);
+        
+        // 添加情人节日期
+        const today = new Date();
+        const valentinesYear = today.getMonth() === 1 && today.getDate() === 14 ? today.getFullYear() : today.getFullYear() + 1;
+        document.querySelector('.footer p').textContent += ` ${valentinesYear}`;
+    </script>
+</body>
+</html>
