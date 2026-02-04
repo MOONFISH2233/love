@@ -57,6 +57,12 @@
             background: radial-gradient(circle at 30% 30%, #f9f3d5 0%, #e6d8a5 70%);
             border-radius: 50%;
             box-shadow: 0 0 40px rgba(249, 243, 213, 0.4);
+            animation: moonGlow 6s ease-in-out infinite;
+        }
+        
+        @keyframes moonGlow {
+            0%, 100% { box-shadow: 0 0 40px rgba(249, 243, 213, 0.4); }
+            50% { box-shadow: 0 0 60px rgba(249, 243, 213, 0.7); }
         }
         
         /* 主容器 */
@@ -80,6 +86,13 @@
             letter-spacing: 3px;
             font-weight: 300;
             margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.5s ease;
+        }
+        
+        .header h1:hover {
+            letter-spacing: 6px;
+            text-shadow: 0 0 20px rgba(249, 243, 213, 0.7);
         }
         
         .title-line {
@@ -87,6 +100,12 @@
             height: 2px;
             background: linear-gradient(90deg, transparent, #f9f3d5, transparent);
             margin: 20px auto;
+            animation: lineExtend 2s ease-out;
+        }
+        
+        @keyframes lineExtend {
+            0% { width: 0; opacity: 0; }
+            100% { width: 80px; opacity: 1; }
         }
         
         /* 主要内容区 */
@@ -100,6 +119,85 @@
             color: #c0c0e0;
             margin-bottom: 40px;
             line-height: 1.6;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 0.5s;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* 照片上传区 */
+        .photo-section {
+            margin: 40px 0;
+            padding: 30px;
+            background: rgba(30, 30, 50, 0.5);
+            border-radius: 15px;
+            border: 1px dashed rgba(249, 243, 213, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .photo-section:hover {
+            border-color: rgba(249, 243, 213, 0.7);
+            background: rgba(30, 30, 50, 0.7);
+        }
+        
+        .photo-container {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid rgba(249, 243, 213, 0.5);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            transition: all 0.5s ease;
+        }
+        
+        .photo-container:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(249, 243, 213, 0.3);
+        }
+        
+        #photoDisplay {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .photo-container:hover #photoDisplay {
+            transform: scale(1.1);
+        }
+        
+        .upload-label {
+            display: inline-block;
+            background: rgba(249, 243, 213, 0.1);
+            border: 1px solid rgba(249, 243, 213, 0.4);
+            color: #f9f3d5;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        
+        .upload-label:hover {
+            background: rgba(249, 243, 213, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .photo-hint {
+            font-size: 0.8rem;
+            color: #9090c0;
+            margin-top: 10px;
+            font-style: italic;
         }
         
         /* 按钮 */
@@ -115,11 +213,29 @@
             font-family: 'Noto Serif SC', serif;
             letter-spacing: 1px;
             margin: 20px 0;
+            position: relative;
+            overflow: hidden;
         }
         
         .secret-button:hover {
             background: rgba(249, 243, 213, 0.1);
             border-color: rgba(249, 243, 213, 0.7);
+            letter-spacing: 2px;
+        }
+        
+        .secret-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(249, 243, 213, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .secret-button:hover::before {
+            left: 100%;
         }
         
         /* 秘密消息 */
@@ -157,6 +273,19 @@
             font-style: italic;
             color: #9090c0;
             font-size: 0.9rem;
+        }
+        
+        /* 星光特效 */
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10;
+            opacity: 0;
+            box-shadow: 0 0 10px white;
         }
         
         /* 底部 */
@@ -199,6 +328,11 @@
             .intro-text {
                 font-size: 1rem;
             }
+            
+            .photo-container {
+                width: 150px;
+                height: 150px;
+            }
         }
     </style>
 </head>
@@ -214,7 +348,7 @@
     <!-- 主内容 -->
     <div class="container">
         <header class="header">
-            <h1>TO MOON</h1>
+            <h1 id="mainTitle">TO MOON</h1>
             <div class="title-line"></div>
         </header>
         
@@ -223,6 +357,18 @@
                 有些话，只说给月亮听<br>
                 有些心意，藏在星辰之间
             </p>
+            
+            <!-- 照片上传区域 -->
+            <div class="photo-section">
+                <div class="photo-container">
+                    <img id="photoDisplay" src="" alt="月光下的照片">
+                </div>
+                <label for="photoUpload" class="upload-label">
+                    📷 上传照片到月光下
+                </label>
+                <input type="file" id="photoUpload" accept="image/*" style="display: none;">
+                <p class="photo-hint">你的照片会像月亮一样发光</p>
+            </div>
             
             <button class="secret-button" id="revealSecret">
                 🌙 打开月光宝盒
@@ -250,13 +396,12 @@
         // 创建简约星空
         function createStars() {
             const starsContainer = document.getElementById('stars');
-            const starCount = 150; // 减少星星数量
+            const starCount = 150;
             
             for (let i = 0; i < starCount; i++) {
                 const star = document.createElement('div');
                 star.classList.add('star');
                 
-                // 随机大小和位置
                 const size = Math.random() * 2 + 1;
                 const x = Math.random() * 100;
                 const y = Math.random() * 100;
@@ -272,6 +417,113 @@
             }
         }
         
+        // 星光特效
+        function createSparkle(x, y) {
+            const sparkle = document.createElement('div');
+            sparkle.classList.add('sparkle');
+            
+            sparkle.style.left = `${x}px`;
+            sparkle.style.top = `${y}px`;
+            
+            document.body.appendChild(sparkle);
+            
+            // 动画
+            sparkle.animate([
+                { opacity: 0, transform: 'scale(0)' },
+                { opacity: 1, transform: 'scale(1)' },
+                { opacity: 0, transform: 'scale(0)' }
+            ], {
+                duration: 1000,
+                easing: 'ease-out'
+            });
+            
+            // 移除星光
+            setTimeout(() => sparkle.remove(), 1000);
+        }
+        
+        // 照片上传功能
+        document.getElementById('photoUpload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const img = document.getElementById('photoDisplay');
+                img.src = e.target.result;
+                
+                // 添加照片加载效果
+                img.style.opacity = '0';
+                img.style.transform = 'scale(0.9)';
+                
+                setTimeout(() => {
+                    img.style.transition = 'all 0.8s ease';
+                    img.style.opacity = '1';
+                    img.style.transform = 'scale(1)';
+                    
+                    // 创建星光特效
+                    for (let i = 0; i < 8; i++) {
+                        setTimeout(() => {
+                            const rect = img.getBoundingClientRect();
+                            const x = rect.left + rect.width / 2;
+                            const y = rect.top + rect.height / 2;
+                            createSparkle(
+                                x + (Math.random() - 0.5) * 100,
+                                y + (Math.random() - 0.5) * 100
+                            );
+                        }, i * 100);
+                    }
+                }, 100);
+                
+                // 保存到本地存储（可选）
+                try {
+                    localStorage.setItem('moonPhoto', e.target.result);
+                } catch (err) {
+                    console.log('本地存储失败，照片可能太大');
+                }
+            };
+            
+            reader.readAsDataURL(file);
+        });
+        
+        // 检查是否有保存的照片
+        window.addEventListener('DOMContentLoaded', function() {
+            createStars();
+            
+            // 加载保存的照片
+            const savedPhoto = localStorage.getItem('moonPhoto');
+            if (savedPhoto) {
+                document.getElementById('photoDisplay').src = savedPhoto;
+            }
+            
+            // 页面加载动画
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 1s ease';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+            
+            // 为标题添加交互
+            document.getElementById('mainTitle').addEventListener('click', function() {
+                this.style.color = '#ff6b8b';
+                setTimeout(() => {
+                    this.style.color = '#f9f3d5';
+                }, 500);
+                
+                // 创建星光特效
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(() => {
+                        const rect = this.getBoundingClientRect();
+                        createSparkle(
+                            rect.left + Math.random() * rect.width,
+                            rect.top + Math.random() * rect.height
+                        );
+                    }, i * 100);
+                }
+            });
+        });
+        
         // 秘密按钮点击事件
         document.getElementById('revealSecret').addEventListener('click', function() {
             const secretMessage = document.getElementById('secretMessage');
@@ -284,37 +536,46 @@
                 secretMessage.classList.add('show');
                 button.textContent = '🌙 收起';
                 
-                // 添加轻微心跳效果
-                secretMessage.style.animation = 'none';
-                setTimeout(() => {
-                    secretMessage.style.animation = 'heartbeat 1s ease';
-                }, 10);
+                // 添加心跳效果
+                secretMessage.style.animation = 'heartbeat 1s ease';
+                
+                // 创建星光特效
+                for (let i = 0; i < 10; i++) {
+                    setTimeout(() => {
+                        const rect = secretMessage.getBoundingClientRect();
+                        createSparkle(
+                            rect.left + Math.random() * rect.width,
+                            rect.top + Math.random() * rect.height
+                        );
+                    }, i * 100);
+                }
             }
         });
         
-        // 页面加载完成后初始化
-        window.addEventListener('DOMContentLoaded', function() {
-            createStars();
-            
-            // 页面加载动画
-            document.body.style.opacity = '0';
-            document.body.style.transition = 'opacity 1s ease';
-            
-            setTimeout(() => {
-                document.body.style.opacity = '1';
-            }, 100);
-        });
-        
         // 添加鼠标悬停效果
-        document.querySelectorAll('.secret-button, .secret-message').forEach(el => {
+        document.querySelectorAll('.secret-button, .upload-label, .photo-container').forEach(el => {
             el.addEventListener('mouseenter', function() {
-                this.style.transform = 'scale(1.02)';
+                this.style.transform = 'translateY(-2px)';
                 this.style.transition = 'transform 0.2s ease';
+                
+                // 添加星光特效
+                const rect = this.getBoundingClientRect();
+                createSparkle(
+                    rect.left + Math.random() * rect.width,
+                    rect.top + Math.random() * rect.height
+                );
             });
             
             el.addEventListener('mouseleave', function() {
-                this.style.transform = 'scale(1)';
+                this.style.transform = 'translateY(0)';
             });
+        });
+        
+        // 点击页面任何地方都可能产生星光
+        document.addEventListener('click', function(e) {
+            if (Math.random() > 0.7) {
+                createSparkle(e.clientX, e.clientY);
+            }
         });
     </script>
 </body>
