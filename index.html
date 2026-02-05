@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>给妈妈 · 爱的记忆</title>
+    <title>TO MOON</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -17,15 +16,16 @@
         
         body {
             font-family: 'Noto Serif SC', serif;
-            background: linear-gradient(135deg, #fff5e6 0%, #ffe8d6 50%, #ffd8b3 100%);
-            color: #5a3921;
+            background: linear-gradient(135deg, #0a0a2a 0%, #1a1a3a 50%, #2a2a4a 100%);
+            color: #f0f0f0;
             min-height: 100vh;
             overflow-x: hidden;
+            position: relative;
             line-height: 1.8;
         }
         
-        /* 花瓣背景 */
-        .petals-container {
+        /* 简约星空 */
+        #stars {
             position: fixed;
             top: 0;
             left: 0;
@@ -35,261 +35,94 @@
             z-index: 1;
         }
         
-        .petal {
+        .star {
             position: absolute;
-            background: rgba(255, 182, 193, 0.5);
-            border-radius: 50% 0 50% 0;
-            pointer-events: none;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+        }
+        
+        /* 简约月亮 */
+        .moon-container {
+            position: fixed;
+            top: 15%;
+            right: 10%;
+            width: 120px;
+            height: 120px;
+            z-index: 2;
+        }
+        
+        .moon {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 30%, #f9f3d5 0%, #e6d8a5 70%);
+            border-radius: 50%;
+            box-shadow: 0 0 40px rgba(249, 243, 213, 0.4);
+            animation: moonGlow 6s ease-in-out infinite;
+        }
+        
+        @keyframes moonGlow {
+            0%, 100% { box-shadow: 0 0 40px rgba(249, 243, 213, 0.4); }
+            50% { box-shadow: 0 0 60px rgba(249, 243, 213, 0.7); }
         }
         
         /* 主容器 */
         .container {
-            max-width: 1000px;
+            max-width: 800px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 60px 20px;
             position: relative;
             z-index: 3;
+            text-align: center;
         }
         
         /* 标题 */
         .header {
-            text-align: center;
-            margin-bottom: 60px;
-            position: relative;
-            padding-top: 20px;
+            margin-bottom: 80px;
         }
         
         .header h1 {
-            font-family: 'Ma Shan Zheng', cursive;
             font-size: 4rem;
-            margin-bottom: 10px;
-            color: #d2691e;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        
-        .header h2 {
-            font-size: 1.5rem;
-            color: #8b4513;
+            color: #f9f3d5;
+            letter-spacing: 3px;
             font-weight: 300;
-            margin-bottom: 30px;
-        }
-        
-        .title-divider {
-            width: 150px;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, #d2691e, transparent);
-            margin: 20px auto;
-            border-radius: 3px;
-        }
-        
-        /* 引言部分 */
-        .intro-section {
-            background: rgba(255, 255, 255, 0.85);
-            border-radius: 20px;
-            padding: 40px;
-            margin-bottom: 40px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(210, 105, 30, 0.2);
-        }
-        
-        .intro-text {
-            font-size: 1.2rem;
-            line-height: 2;
-            text-align: center;
-            color: #5a3921;
-        }
-        
-        .heart-icon {
-            color: #ff6b8b;
-            margin: 0 10px;
-            animation: heartbeat 1.5s infinite;
-            display: inline-block;
-        }
-        
-        @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-        }
-        
-        /* 特别照片展示区 */
-        .special-photo-section {
-            margin-bottom: 50px;
-            text-align: center;
-        }
-        
-        .special-title {
-            font-size: 2rem;
-            color: #8b4513;
-            margin-bottom: 30px;
-            position: relative;
-        }
-        
-        .special-title::after {
-            content: '';
-            display: block;
-            width: 100px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #d2691e, transparent);
-            margin: 10px auto;
-        }
-        
-        .special-photo-container {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(210, 105, 30, 0.2);
-            transition: all 0.3s ease;
-        }
-        
-        .special-photo-container:hover {
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
-            transform: translateY(-5px);
-        }
-        
-        .special-photo {
-            width: 300px;
-            height: 300px;
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 5px solid rgba(210, 105, 30, 0.3);
-            box-shadow: 0 0 40px rgba(0, 0, 0, 0.15);
-            position: relative;
+            margin-bottom: 10px;
+            cursor: pointer;
             transition: all 0.5s ease;
         }
         
-        .special-photo:hover {
-            border-color: rgba(210, 105, 30, 0.7);
-            transform: scale(1.03);
+        .header h1:hover {
+            letter-spacing: 6px;
+            text-shadow: 0 0 20px rgba(249, 243, 213, 0.7);
         }
         
-        #specialPhoto {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        
-        .special-photo:hover #specialPhoto {
-            transform: scale(1.1);
-        }
-        
-        .photo-memory {
-            font-size: 1.1rem;
-            color: #5a3921;
-            line-height: 1.6;
-            max-width: 600px;
-            margin: 0 auto;
-            font-style: italic;
-        }
-        
-        /* 照片上传区 */
-        .upload-section {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
-            padding: 40px;
-            margin-bottom: 50px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            border: 2px dashed #ffb6c1;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        
-        .upload-section:hover {
-            border-color: #d2691e;
-            background: rgba(255, 255, 255, 0.95);
-        }
-        
-        .upload-title {
-            font-size: 1.8rem;
-            color: #8b4513;
-            margin-bottom: 20px;
-        }
-        
-        .upload-instruction {
-            color: #5a3921;
-            margin-bottom: 25px;
-            font-size: 1.1rem;
-        }
-        
-        /* 上传按钮样式 */
-        .upload-btn {
-            display: inline-block;
-            background: linear-gradient(135deg, #ffb6c1, #ff8c94);
-            color: white;
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: none;
-            box-shadow: 0 5px 15px rgba(255, 182, 193, 0.4);
-            font-family: 'Noto Serif SC', serif;
-            margin-bottom: 20px;
-        }
-        
-        .upload-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 182, 193, 0.6);
-            background: linear-gradient(135deg, #ff8c94, #ff6b7a);
-        }
-        
-        .upload-btn i {
-            margin-right: 10px;
-        }
-        
-        .upload-note {
-            font-size: 0.9rem;
-            color: #8b4513;
-            font-style: italic;
-            margin-top: 15px;
-        }
-        
-        /* 照片展示区 */
-        .gallery-section {
-            margin-bottom: 60px;
-        }
-        
-        .gallery-title {
-            font-size: 2rem;
-            color: #8b4513;
-            text-align: center;
-            margin-bottom: 30px;
-            position: relative;
-        }
-        
-        .gallery-title::after {
-            content: '';
-            display: block;
-            width: 100px;
+        .title-line {
+            width: 80px;
             height: 2px;
-            background: linear-gradient(90deg, transparent, #d2691e, transparent);
-            margin: 10px auto;
+            background: linear-gradient(90deg, transparent, #f9f3d5, transparent);
+            margin: 20px auto;
+            animation: lineExtend 2s ease-out;
         }
         
-        .gallery-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
+        @keyframes lineExtend {
+            0% { width: 0; opacity: 0; }
+            100% { width: 80px; opacity: 1; }
         }
         
-        .photo-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s ease;
-            position: relative;
+        /* 主要内容区 */
+        .content {
+            margin: 60px auto;
+            max-width: 500px;
+        }
+        
+        .intro-text {
+            font-size: 1.1rem;
+            color: #c0c0e0;
+            margin-bottom: 40px;
+            line-height: 1.6;
             opacity: 0;
             transform: translateY(20px);
-            animation: fadeInUp 0.8s forwards;
-        }
-        
-        .photo-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 0.5s;
         }
         
         @keyframes fadeInUp {
@@ -299,137 +132,161 @@
             }
         }
         
-        .photo-img {
-            width: 100%;
+        /* 照片展示区 */
+        .photo-section {
+            margin: 40px 0;
+            padding: 30px;
+            background: rgba(30, 30, 50, 0.3);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .photo-section:hover {
+            background: rgba(30, 30, 50, 0.5);
+        }
+        
+        .photo-container {
+            width: 200px;
             height: 200px;
+            margin: 0 auto;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid rgba(249, 243, 213, 0.5);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            transition: all 0.5s ease;
+        }
+        
+        .photo-container:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 50px rgba(249, 243, 213, 0.3);
+            border-color: rgba(249, 243, 213, 0.8);
+        }
+        
+        #myPhoto {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease;
         }
         
-        .photo-card:hover .photo-img {
-            transform: scale(1.05);
+        .photo-container:hover #myPhoto {
+            transform: scale(1.1);
         }
         
         .photo-caption {
-            padding: 15px;
-            text-align: center;
-            color: #5a3921;
-            font-size: 1rem;
-        }
-        
-        .delete-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            opacity: 0;
-        }
-        
-        .photo-card:hover .delete-btn {
-            opacity: 1;
-        }
-        
-        .delete-btn:hover {
-            background: rgba(220, 53, 69, 0.8);
-        }
-        
-        /* 信息卡片 */
-        .info-cards {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 60px;
-        }
-        
-        .info-card {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            padding: 30px;
-            width: 300px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-            border-top: 5px solid #ffb6c1;
-            transition: all 0.3s ease;
-        }
-        
-        .info-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
-        }
-        
-        .info-card i {
-            font-size: 2.5rem;
-            color: #d2691e;
-            margin-bottom: 20px;
-            display: block;
-            text-align: center;
-        }
-        
-        .info-card h3 {
-            font-size: 1.5rem;
-            color: #8b4513;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        
-        .info-card p {
-            color: #5a3921;
-            line-height: 1.6;
-            text-align: center;
-        }
-        
-        /* 祝福语区域 */
-        .message-section {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
-            padding: 40px;
-            margin-bottom: 60px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            border-left: 5px solid #d2691e;
-        }
-        
-        .message-title {
-            font-size: 2rem;
-            color: #8b4513;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        
-        .message-content {
-            font-size: 1.2rem;
-            line-height: 2;
-            color: #5a3921;
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .signature {
-            text-align: right;
+            font-size: 0.9rem;
+            color: #9090c0;
+            margin-top: 15px;
             font-style: italic;
-            color: #8b4513;
-            margin-top: 30px;
+        }
+        
+        /* 按钮 */
+        .secret-button {
+            background: transparent;
+            border: 2px solid rgba(249, 243, 213, 0.3);
+            color: #f9f3d5;
+            padding: 12px 30px;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Noto Serif SC', serif;
+            letter-spacing: 1px;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .secret-button:hover {
+            background: rgba(249, 243, 213, 0.1);
+            border-color: rgba(249, 243, 213, 0.7);
+            letter-spacing: 2px;
+        }
+        
+        .secret-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(249, 243, 213, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .secret-button:hover::before {
+            left: 100%;
+        }
+        
+        /* 秘密消息 */
+        .secret-message {
+            margin: 40px auto;
+            padding: 30px;
+            background: rgba(30, 30, 50, 0.7);
+            border-radius: 15px;
+            border-left: 3px solid #f9f3d5;
+            max-width: 400px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+        
+        .secret-message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .poem-title {
             font-size: 1.3rem;
+            color: #f9f3d5;
+            margin-bottom: 20px;
+        }
+        
+        .poem {
+            font-size: 1.1rem;
+            line-height: 2;
+            color: #d8d8f0;
+            margin-bottom: 20px;
+        }
+        
+        .author {
+            font-style: italic;
+            color: #9090c0;
+            font-size: 0.9rem;
+        }
+        
+        /* 星光特效 */
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10;
+            opacity: 0;
+            box-shadow: 0 0 10px white;
         }
         
         /* 底部 */
         .footer {
-            text-align: center;
-            padding: 30px 0;
-            color: #8b4513;
+            margin-top: 80px;
+            padding: 20px 0;
+            color: #9090c0;
             font-size: 0.9rem;
-            border-top: 1px solid rgba(210, 105, 30, 0.2);
-            margin-top: 60px;
+            border-top: 1px solid rgba(100, 100, 150, 0.1);
+        }
+        
+        .heart {
+            color: #ff6b8b;
+            animation: heartbeat 1.5s infinite;
+            display: inline-block;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
         
         /* 响应式设计 */
@@ -438,475 +295,128 @@
                 font-size: 3rem;
             }
             
-            .header h2 {
-                font-size: 1.2rem;
+            .moon-container {
+                width: 80px;
+                height: 80px;
+                top: 10%;
+                right: 5%;
             }
             
-            .intro-section, .upload-section, .message-section {
-                padding: 25px;
+            .content {
+                padding: 0 15px;
             }
             
-            .special-photo {
-                width: 250px;
-                height: 250px;
+            .intro-text {
+                font-size: 1rem;
             }
             
-            .gallery-container {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-                gap: 15px;
+            .photo-container {
+                width: 180px;
+                height: 180px;
             }
-            
-            .info-cards {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .info-card {
-                width: 100%;
-                max-width: 400px;
-            }
-        }
-        
-        /* 加载动画 */
-        .loading {
-            display: none;
-            text-align: center;
-            margin: 20px 0;
-        }
-        
-        .loading-dot {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #ffb6c1;
-            margin: 0 5px;
-            animation: loading 1.4s infinite ease-in-out both;
-        }
-        
-        .loading-dot:nth-child(1) { animation-delay: -0.32s; }
-        .loading-dot:nth-child(2) { animation-delay: -0.16s; }
-        
-        @keyframes loading {
-            0%, 80%, 100% { transform: scale(0); }
-            40% { transform: scale(1); }
-        }
-        
-        /* 花瓣动画 */
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(var(--rotation)); }
-            25% { transform: translateY(-20px) translateX(10px) rotate(calc(var(--rotation) + 90deg)); }
-            50% { transform: translateY(-40px) translateX(-10px) rotate(calc(var(--rotation) + 180deg)); }
-            75% { transform: translateY(-20px) translateX(5px) rotate(calc(var(--rotation) + 270deg)); }
         }
     </style>
 </head>
 <body>
-    <!-- 花瓣背景 -->
-    <div class="petals-container" id="petals"></div>
+    <!-- 星空背景 -->
+    <div id="stars"></div>
+    
+    <!-- 月亮 -->
+    <div class="moon-container">
+        <div class="moon"></div>
+    </div>
     
     <!-- 主内容 -->
     <div class="container">
         <header class="header">
-            <h1>给妈妈</h1>
-            <h2>最温暖的港湾 · 最无私的爱</h2>
-            <div class="title-divider"></div>
+            <h1 id="mainTitle">TO MOON</h1>
+            <div class="title-line"></div>
         </header>
         
-        <section class="intro-section">
-            <div class="intro-text">
-                <p>妈妈，您是世界上最温暖的光 <span class="heart-icon">❤</span></p>
-                <p>您用爱编织了我生命中最美的篇章</p>
-                <p>这个小小的空间，只想记录与您的每一个珍贵瞬间</p>
-            </div>
-        </section>
-        
-        <!-- 特别照片展示区 -->
-        <section class="special-photo-section">
-            <h2 class="special-title">珍藏的回忆</h2>
-            <div class="special-photo-container">
-                <div class="special-photo">
-                    <img id="specialPhoto" src="https://i.ibb.co/210XWyVb/IMG-20190617-013918.jpg" 
-                         alt="与妈妈的珍贵合影">
-                </div>
-                <p class="photo-memory">
-                    这是我最珍藏的一张照片，记录了我们一起的美好时光。<br>
-                    每次看到这张照片，都让我想起您温暖的怀抱和无尽的爱。
-                </p>
-            </div>
-        </section>
-        
-        <!-- 照片上传区 -->
-        <section class="upload-section">
-            <h2 class="upload-title">📸 上传我们的美好回忆</h2>
-            <p class="upload-instruction">上传更多照片，记录我们一起的温馨时光</p>
             
-            <button class="upload-btn" id="uploadButton">
-                <i class="fas fa-cloud-upload-alt"></i> 选择照片上传
+            <!-- 照片展示区 -->
+            <div class="photo-section">
+                <div class="photo-container">
+                    <!-- ⚠️ 这里需要替换成你的照片链接 ⚠️ -->
+                    <img id="myPhoto" src="https://i.ibb.co/HLXrMhNY/Image-1770196739212-6.jpg" 
+                         alt="月光下的照片">
+                </div>
+                <p class="photo-caption"> </p>
+            </div>
+            
+            <button class="secret-button" id="revealSecret">
+                🌙 OPEN
             </button>
-            <input type="file" id="fileInput" accept="image/*" multiple style="display: none;">
             
-            <div class="loading" id="loadingIndicator">
-                <div class="loading-dot"></div>
-                <div class="loading-dot"></div>
-                <div class="loading-dot"></div>
-            </div>
-            
-            <p class="upload-note">照片将保存在您的浏览器中，仅您可见</p>
-        </section>
-        
-        <!-- 照片展示区 -->
-        <section class="gallery-section" id="gallerySection">
-            <h2 class="gallery-title">我们的温馨回忆</h2>
-            <div class="gallery-container" id="galleryContainer">
-                <!-- 照片会动态添加到这里 -->
-                <div class="empty-message" id="emptyMessage" style="text-align: center; grid-column: 1 / -1; padding: 40px; color: #8b4513; font-size: 1.1rem;">
-                    <i class="fas fa-images" style="font-size: 3rem; margin-bottom: 20px; display: block; opacity: 0.5;"></i>
-                    <p>还没有上传更多照片，点击上方按钮上传吧！</p>
+            <div class="secret-message" id="secretMessage">
+                <div class="poem-title"> MOON</div>
+                <div class="poem">
+                    彻夜<br>
+                    我与月亮谈心<br>
+                    它与我谈论太阳<br>
+                    我向它谈起你
                 </div>
+                <div class="author">—— FISH</div>
             </div>
-        </section>
-        
-        <!-- 信息卡片 -->
-        <section class="info-cards">
-            <div class="info-card">
-                <i class="fas fa-heart"></i>
-                <h3>无私的爱</h3>
-                <p>您的爱像阳光，温暖我成长的每一步。无论我在哪里，都能感受到您的关怀。</p>
-            </div>
-            
-            <div class="info-card">
-                <i class="fas fa-hands-helping"></i>
-                <h3>永恒的守护</h3>
-                <p>从蹒跚学步到展翅高飞，您始终是我最坚实的后盾，最温暖的港湾。</p>
-            </div>
-            
-            <div class="info-card">
-                <i class="fas fa-star"></i>
-                <h3>最美的榜样</h3>
-                <p>您的善良、坚韧和智慧，是我一生学习的榜样，是我心中最美的风景。</p>
-            </div>
-        </section>
-        
-        <!-- 祝福语区域 -->
-        <section class="message-section">
-            <h2 class="message-title">给妈妈的话</h2>
-            <div class="message-content">
-                <p>亲爱的妈妈：</p>
-                <p>时光荏苒，岁月如梭。转眼间，我已长大，而您的鬓角也添了白发。</p>
-                <p>感谢您给予我生命，教会我成长，用无尽的爱包容我的一切。</p>
-                <p>您是我人生路上最亮的灯塔，是我疲惫时最温暖的怀抱。</p>
-                <p>愿时光善待您，愿健康常伴您，愿笑容永驻您的脸庞。</p>
-                <p>妈妈，我爱您，不仅在今天，在未来的每一天。</p>
-            </div>
-            <div class="signature">
-                <p>—— 永远爱您的香袜子</p>
-            </div>
-        </section>
+        </div>
         
         <footer class="footer">
-            <p>❤️ 献给世界上最伟大的妈妈 ❤️</p>
-            <p style="margin-top:10px; font-size:0.8rem; opacity:0.7;">所有照片仅保存在您的设备中，保护您的隐私</p>
+            <p style="margin-top:10px; font-size:0.8rem; opacity:0.7;">by Fish </p>
         </footer>
     </div>
 
     <script>
-        // 创建花瓣背景
-        function createPetals() {
-            const petalsContainer = document.getElementById('petals');
-            const petalCount = 25;
+        // 创建简约星空
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const starCount = 150;
             
-            for (let i = 0; i < petalCount; i++) {
-                const petal = document.createElement('div');
-                petal.classList.add('petal');
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
                 
-                // 随机大小、位置和颜色
-                const size = Math.random() * 30 + 10;
+                const size = Math.random() * 2 + 1;
                 const x = Math.random() * 100;
                 const y = Math.random() * 100;
-                const hue = Math.random() * 30 + 330; // 粉色系
-                const saturation = Math.random() * 30 + 70;
-                const lightness = Math.random() * 20 + 70;
-                const rotation = Math.random() * 360;
-                const opacity = Math.random() * 0.4 + 0.3;
+                const opacity = 0.3 + Math.random() * 0.7;
                 
-                petal.style.width = `${size}px`;
-                petal.style.height = `${size}px`;
-                petal.style.left = `${x}%`;
-                petal.style.top = `${y}%`;
-                petal.style.backgroundColor = `hsla(${hue}, ${saturation}%, ${lightness}%, ${opacity})`;
-                petal.style.setProperty('--rotation', `${rotation}deg`);
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${x}%`;
+                star.style.top = `${y}%`;
+                star.style.opacity = opacity;
                 
-                // 花瓣飘落动画
-                const duration = 15 + Math.random() * 20;
-                const delay = Math.random() * 10;
-                
-                petal.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
-                
-                petalsContainer.appendChild(petal);
+                starsContainer.appendChild(star);
             }
         }
         
-        // 照片管理功能
-        let photos = [];
-        
-        // 从本地存储加载照片
-        function loadPhotosFromStorage() {
-            try {
-                const savedPhotos = localStorage.getItem('momPhotos');
-                if (savedPhotos) {
-                    photos = JSON.parse(savedPhotos);
-                    renderGallery();
-                }
-            } catch (error) {
-                console.log('无法加载保存的照片:', error);
-                photos = [];
-            }
-        }
-        
-        // 保存照片到本地存储
-        function savePhotosToStorage() {
-            try {
-                localStorage.setItem('momPhotos', JSON.stringify(photos));
-            } catch (error) {
-                console.log('无法保存照片（可能超出存储限制）:', error);
-                alert('存储空间已满，请删除一些照片再试。');
-            }
-        }
-        
-        // 渲染相册
-        function renderGallery() {
-            const galleryContainer = document.getElementById('galleryContainer');
-            const emptyMessage = document.getElementById('emptyMessage');
+        // 星光特效
+        function createSparkle(x, y) {
+            const sparkle = document.createElement('div');
+            sparkle.classList.add('sparkle');
             
-            if (photos.length === 0) {
-                emptyMessage.style.display = 'block';
-                return;
-            }
+            sparkle.style.left = `${x}px`;
+            sparkle.style.top = `${y}px`;
             
-            emptyMessage.style.display = 'none';
+            document.body.appendChild(sparkle);
             
-            // 清空现有内容（除了空消息）
-            Array.from(galleryContainer.children).forEach(child => {
-                if (child.id !== 'emptyMessage') {
-                    child.remove();
-                }
+            // 动画
+            sparkle.animate([
+                { opacity: 0, transform: 'scale(0)' },
+                { opacity: 1, transform: 'scale(1)' },
+                { opacity: 0, transform: 'scale(0)' }
+            ], {
+                duration: 1000,
+                easing: 'ease-out'
             });
             
-            // 添加照片卡片
-            photos.forEach((photo, index) => {
-                const photoCard = document.createElement('div');
-                photoCard.className = 'photo-card';
-                photoCard.style.animationDelay = `${index * 0.1}s`;
-                
-                photoCard.innerHTML = `
-                    <button class="delete-btn" data-index="${index}">
-                        <i class="fas fa-times"></i>
-                    </button>
-                    <img src="${photo.dataUrl}" alt="回忆照片" class="photo-img">
-                    <div class="photo-caption">
-                        <p>${photo.caption || '美好回忆'}</p>
-                        <small>${photo.date || getCurrentDate()}</small>
-                    </div>
-                `;
-                
-                galleryContainer.appendChild(photoCard);
-            });
-            
-            // 添加删除事件监听
-            document.querySelectorAll('.delete-btn').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const index = parseInt(this.getAttribute('data-index'));
-                    deletePhoto(index);
-                });
-            });
-        }
-        
-        // 删除照片
-        function deletePhoto(index) {
-            if (confirm('确定要删除这张照片吗？')) {
-                photos.splice(index, 1);
-                savePhotosToStorage();
-                renderGallery();
-                
-                // 显示删除成功提示
-                showNotification('照片已删除');
-            }
-        }
-        
-        // 获取当前日期
-        function getCurrentDate() {
-            const now = new Date();
-            return `${now.getFullYear()}年${now.getMonth() + 1}月${now.getDate()}日`;
-        }
-        
-        // 上传照片功能
-        document.getElementById('uploadButton').addEventListener('click', function() {
-            document.getElementById('fileInput').click();
-        });
-        
-        document.getElementById('fileInput').addEventListener('change', function(event) {
-            const files = event.target.files;
-            if (!files || files.length === 0) return;
-            
-            const loadingIndicator = document.getElementById('loadingIndicator');
-            loadingIndicator.style.display = 'block';
-            
-            // 处理每张图片
-            const filePromises = [];
-            for (let i = 0; i < Math.min(files.length, 10); i++) {
-                filePromises.push(processImageFile(files[i]));
-            }
-            
-            // 所有图片处理完成后
-            Promise.all(filePromises)
-                .then(results => {
-                    results.forEach(result => {
-                        if (result) {
-                            photos.unshift(result); // 新照片放在最前面
-                        }
-                    });
-                    
-                    savePhotosToStorage();
-                    renderGallery();
-                    
-                    // 显示上传成功提示
-                    showNotification(`成功上传 ${results.length} 张照片`);
-                })
-                .catch(error => {
-                    console.error('图片处理错误:', error);
-                    alert('上传失败，请重试。');
-                })
-                .finally(() => {
-                    loadingIndicator.style.display = 'none';
-                    document.getElementById('fileInput').value = '';
-                });
-        });
-        
-        // 处理图片文件
-        function processImageFile(file) {
-            return new Promise((resolve, reject) => {
-                // 检查文件类型
-                if (!file.type.match('image.*')) {
-                    alert(`文件 "${file.name}" 不是图片格式，已跳过。`);
-                    resolve(null);
-                    return;
-                }
-                
-                // 检查文件大小（限制为5MB）
-                if (file.size > 5 * 1024 * 1024) {
-                    alert(`文件 "${file.name}" 太大（超过5MB），已跳过。`);
-                    resolve(null);
-                    return;
-                }
-                
-                const reader = new FileReader();
-                
-                reader.onload = function(e) {
-                    const img = new Image();
-                    
-                    img.onload = function() {
-                        // 创建Canvas压缩图片
-                        const canvas = document.createElement('canvas');
-                        const ctx = canvas.getContext('2d');
-                        
-                        // 计算新尺寸（限制最大宽度/高度为1200px）
-                        let width = img.width;
-                        let height = img.height;
-                        const maxSize = 1200;
-                        
-                        if (width > height && width > maxSize) {
-                            height = (height * maxSize) / width;
-                            width = maxSize;
-                        } else if (height > maxSize) {
-                            width = (width * maxSize) / height;
-                            height = maxSize;
-                        }
-                        
-                        canvas.width = width;
-                        canvas.height = height;
-                        
-                        // 绘制并压缩
-                        ctx.drawImage(img, 0, 0, width, height);
-                        
-                        // 获取压缩后的数据URL
-                        const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.8);
-                        
-                        // 创建照片对象
-                        const photo = {
-                            id: Date.now() + Math.random(),
-                            name: file.name,
-                            size: file.size,
-                            date: getCurrentDate(),
-                            caption: file.name.replace(/\.[^/.]+$/, ""), // 去掉扩展名作为默认描述
-                            dataUrl: compressedDataUrl
-                        };
-                        
-                        resolve(photo);
-                    };
-                    
-                    img.onerror = reject;
-                    img.src = e.target.result;
-                };
-                
-                reader.onerror = reject;
-                reader.readAsDataURL(file);
-            });
-        }
-        
-        // 显示通知
-        function showNotification(message) {
-            // 移除旧的通知
-            const oldNotification = document.querySelector('.notification');
-            if (oldNotification) oldNotification.remove();
-            
-            // 创建新通知
-            const notification = document.createElement('div');
-            notification.className = 'notification';
-            notification.textContent = message;
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: #d2691e;
-                color: white;
-                padding: 15px 25px;
-                border-radius: 10px;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-                z-index: 1000;
-                animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s forwards;
-            `;
-            
-            // 添加动画
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes slideIn {
-                    from { transform: translateX(100%); opacity: 0; }
-                    to { transform: translateX(0); opacity: 1; }
-                }
-                @keyframes fadeOut {
-                    from { opacity: 1; }
-                    to { opacity: 0; }
-                }
-            `;
-            document.head.appendChild(style);
-            
-            document.body.appendChild(notification);
-            
-            // 3秒后自动移除
-            setTimeout(() => {
-                if (notification.parentNode) {
-                    notification.remove();
-                    style.remove();
-                }
-            }, 3000);
+            // 移除星光
+            setTimeout(() => sparkle.remove(), 1000);
         }
         
         // 页面加载完成后初始化
         window.addEventListener('DOMContentLoaded', function() {
-            createPetals();
-            loadPhotosFromStorage();
+            createStars();
             
             // 页面加载动画
             document.body.style.opacity = '0';
@@ -914,34 +424,113 @@
             
             setTimeout(() => {
                 document.body.style.opacity = '1';
+                
+                // 照片加载后添加特效
+                const photo = document.getElementById('myPhoto');
+                photo.style.opacity = '0';
+                photo.style.transform = 'scale(0.9)';
+                
+                setTimeout(() => {
+                    photo.style.transition = 'all 0.8s ease';
+                    photo.style.opacity = '1';
+                    photo.style.transform = 'scale(1)';
+                    
+                    // 创建星光特效
+                    for (let i = 0; i < 10; i++) {
+                        setTimeout(() => {
+                            const rect = photo.getBoundingClientRect();
+                            createSparkle(
+                                rect.left + rect.width / 2 + (Math.random() - 0.5) * 120,
+                                rect.top + rect.height / 2 + (Math.random() - 0.5) * 120
+                            );
+                        }, i * 100);
+                    }
+                }, 500);
             }, 100);
             
-            // 为特别照片添加加载动画
-            const specialPhoto = document.getElementById('specialPhoto');
-            specialPhoto.style.opacity = '0';
-            specialPhoto.style.transform = 'scale(0.9)';
-            
-            specialPhoto.onload = function() {
+            // 为标题添加交互
+            document.getElementById('mainTitle').addEventListener('click', function() {
+                this.style.color = '#ff6b8b';
                 setTimeout(() => {
-                    specialPhoto.style.transition = 'all 0.8s ease';
-                    specialPhoto.style.opacity = '1';
-                    specialPhoto.style.transform = 'scale(1)';
+                    this.style.color = '#f9f3d5';
                 }, 500);
-            };
-            
-            // 如果图片已经缓存，立即触发效果
-            if (specialPhoto.complete) {
-                specialPhoto.onload();
-            }
-            
-            // 添加一些提示
-            setTimeout(() => {
-                if (photos.length === 0) {
-                    showNotification('点击"选择照片上传"按钮添加更多照片');
+                
+                // 创建星光特效
+                for (let i = 0; i < 8; i++) {
+                    setTimeout(() => {
+                        const rect = this.getBoundingClientRect();
+                        createSparkle(
+                            rect.left + Math.random() * rect.width,
+                            rect.top + Math.random() * rect.height
+                        );
+                    }, i * 100);
                 }
-            }, 2000);
+            });
+        });
+        
+        // 秘密按钮点击事件
+        document.getElementById('revealSecret').addEventListener('click', function() {
+            const secretMessage = document.getElementById('secretMessage');
+            const button = this;
+            
+            if (secretMessage.classList.contains('show')) {
+                secretMessage.classList.remove('show');
+                button.textContent = '🌙 OPEN';
+            } else {
+                secretMessage.classList.add('show');
+                button.textContent = '🌙 ';
+                
+                // 添加心跳效果
+                secretMessage.style.animation = 'heartbeat 1s ease';
+                
+                // 创建星光特效
+                for (let i = 0; i < 12; i++) {
+                    setTimeout(() => {
+                        const rect = secretMessage.getBoundingClientRect();
+                        createSparkle(
+                            rect.left + Math.random() * rect.width,
+                            rect.top + Math.random() * rect.height
+                        );
+                    }, i * 80);
+                }
+            }
+        });
+        
+        // 添加鼠标悬停效果
+        document.querySelectorAll('.secret-button, .photo-container').forEach(el => {
+            el.addEventListener('mouseenter', function() {
+                this.style.transform = this.classList.contains('photo-container') 
+                    ? 'scale(1.05)' 
+                    : 'translateY(-2px)';
+                this.style.transition = 'transform 0.2s ease';
+                
+                // 添加星光特效
+                const rect = this.getBoundingClientRect();
+                createSparkle(
+                    rect.left + Math.random() * rect.width,
+                    rect.top + Math.random() * rect.height
+                );
+            });
+            
+            el.addEventListener('mouseleave', function() {
+                this.style.transform = this.classList.contains('photo-container') 
+                    ? 'scale(1)' 
+                    : 'translateY(0)';
+            });
+        });
+        
+        // 点击页面任何地方都可能产生星光
+        document.addEventListener('click', function(e) {
+            if (Math.random() > 0.7) {
+                createSparkle(e.clientX, e.clientY);
+            }
         });
     </script>
 </body>
 </html>
+
+
+
+
+
 
