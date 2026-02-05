@@ -111,6 +111,79 @@
             50% { transform: scale(1.2); }
         }
         
+        /* 特别照片展示区 */
+        .special-photo-section {
+            margin-bottom: 50px;
+            text-align: center;
+        }
+        
+        .special-title {
+            font-size: 2rem;
+            color: #8b4513;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .special-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #d2691e, transparent);
+            margin: 10px auto;
+        }
+        
+        .special-photo-container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(210, 105, 30, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .special-photo-container:hover {
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+            transform: translateY(-5px);
+        }
+        
+        .special-photo {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid rgba(210, 105, 30, 0.3);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.15);
+            position: relative;
+            transition: all 0.5s ease;
+        }
+        
+        .special-photo:hover {
+            border-color: rgba(210, 105, 30, 0.7);
+            transform: scale(1.03);
+        }
+        
+        #specialPhoto {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .special-photo:hover #specialPhoto {
+            transform: scale(1.1);
+        }
+        
+        .photo-memory {
+            font-size: 1.1rem;
+            color: #5a3921;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+            font-style: italic;
+        }
+        
         /* 照片上传区 */
         .upload-section {
             background: rgba(255, 255, 255, 0.9);
@@ -373,6 +446,11 @@
                 padding: 25px;
             }
             
+            .special-photo {
+                width: 250px;
+                height: 250px;
+            }
+            
             .gallery-container {
                 grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
                 gap: 15px;
@@ -413,6 +491,14 @@
             0%, 80%, 100% { transform: scale(0); }
             40% { transform: scale(1); }
         }
+        
+        /* 花瓣动画 */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(var(--rotation)); }
+            25% { transform: translateY(-20px) translateX(10px) rotate(calc(var(--rotation) + 90deg)); }
+            50% { transform: translateY(-40px) translateX(-10px) rotate(calc(var(--rotation) + 180deg)); }
+            75% { transform: translateY(-20px) translateX(5px) rotate(calc(var(--rotation) + 270deg)); }
+        }
     </style>
 </head>
 <body>
@@ -435,10 +521,25 @@
             </div>
         </section>
         
+        <!-- 特别照片展示区 -->
+        <section class="special-photo-section">
+            <h2 class="special-title">珍藏的回忆</h2>
+            <div class="special-photo-container">
+                <div class="special-photo">
+                    <img id="specialPhoto" src="https://i.ibb.co/210XWyVb/IMG-20190617-013918.jpg" 
+                         alt="与妈妈的珍贵合影">
+                </div>
+                <p class="photo-memory">
+                    这是我最珍藏的一张照片，记录了我们一起的美好时光。<br>
+                    每次看到这张照片，都让我想起您温暖的怀抱和无尽的爱。
+                </p>
+            </div>
+        </section>
+        
         <!-- 照片上传区 -->
         <section class="upload-section">
             <h2 class="upload-title">📸 上传我们的美好回忆</h2>
-            <p class="upload-instruction">上传照片，记录我们一起的温馨时光</p>
+            <p class="upload-instruction">上传更多照片，记录我们一起的温馨时光</p>
             
             <button class="upload-btn" id="uploadButton">
                 <i class="fas fa-cloud-upload-alt"></i> 选择照片上传
@@ -461,7 +562,7 @@
                 <!-- 照片会动态添加到这里 -->
                 <div class="empty-message" id="emptyMessage" style="text-align: center; grid-column: 1 / -1; padding: 40px; color: #8b4513; font-size: 1.1rem;">
                     <i class="fas fa-images" style="font-size: 3rem; margin-bottom: 20px; display: block; opacity: 0.5;"></i>
-                    <p>还没有照片，点击上方按钮上传第一张照片吧！</p>
+                    <p>还没有上传更多照片，点击上方按钮上传吧！</p>
                 </div>
             </div>
         </section>
@@ -534,28 +635,13 @@
                 petal.style.left = `${x}%`;
                 petal.style.top = `${y}%`;
                 petal.style.backgroundColor = `hsla(${hue}, ${saturation}%, ${lightness}%, ${opacity})`;
-                petal.style.transform = `rotate(${rotation}deg)`;
+                petal.style.setProperty('--rotation', `${rotation}deg`);
                 
                 // 花瓣飘落动画
                 const duration = 15 + Math.random() * 20;
                 const delay = Math.random() * 10;
                 
                 petal.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
-                
-                // 添加动画关键帧
-                if (!document.querySelector('#petalAnimations')) {
-                    const style = document.createElement('style');
-                    style.id = 'petalAnimations';
-                    style.textContent = `
-                        @keyframes float {
-                            0%, 100% { transform: translateY(0) rotate(${rotation}deg); }
-                            25% { transform: translateY(-20px) translateX(10px) rotate(${rotation + 90}deg); }
-                            50% { transform: translateY(-40px) translateX(-10px) rotate(${rotation + 180}deg); }
-                            75% { transform: translateY(-20px) translateX(5px) rotate(${rotation + 270}deg); }
-                        }
-                    `;
-                    document.head.appendChild(style);
-                }
                 
                 petalsContainer.appendChild(petal);
             }
@@ -830,10 +916,28 @@
                 document.body.style.opacity = '1';
             }, 100);
             
+            // 为特别照片添加加载动画
+            const specialPhoto = document.getElementById('specialPhoto');
+            specialPhoto.style.opacity = '0';
+            specialPhoto.style.transform = 'scale(0.9)';
+            
+            specialPhoto.onload = function() {
+                setTimeout(() => {
+                    specialPhoto.style.transition = 'all 0.8s ease';
+                    specialPhoto.style.opacity = '1';
+                    specialPhoto.style.transform = 'scale(1)';
+                }, 500);
+            };
+            
+            // 如果图片已经缓存，立即触发效果
+            if (specialPhoto.complete) {
+                specialPhoto.onload();
+            }
+            
             // 添加一些提示
             setTimeout(() => {
                 if (photos.length === 0) {
-                    showNotification('点击"选择照片上传"按钮添加照片');
+                    showNotification('点击"选择照片上传"按钮添加更多照片');
                 }
             }, 2000);
         });
